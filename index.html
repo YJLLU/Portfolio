@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="医疗器械设计作品集" />
+  <title>Portfolio · 医疗器械设计</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-home">
+  <div class="layout">
+    <!-- 左侧：自我介绍 -->
+    <aside class="panel panel-left">
+      <div class="profile">
+        <div class="avatar-wrap">
+          <div class="avatar-placeholder">照片</div>
+          <img src="images/profile.jpg" alt="" class="avatar" onerror="this.style.display='none'" />
+        </div>
+        <p class="eyebrow">Medical Device Designer</p>
+        <h1 class="name">你的名字</h1>
+        <p class="title">工业设计师 · 医疗器械</p>
+      </div>
+
+      <div class="bio">
+        <p>
+          专注于诊断、监护与可穿戴医疗器械的工业设计与可用性研究。工作涵盖用户研究、概念设计、CMF、原型验证与 DFM。
+        </p>
+        <p>
+          相信医疗产品应在<strong>安全、清晰与温暖</strong>之间取得平衡。
+        </p>
+      </div>
+
+      <ul class="skills">
+        <li>人因 &amp; 可用性</li>
+        <li>SolidWorks / Keyshot</li>
+        <li>ISO 13485 / IEC 62366</li>
+        <li>原型与测试</li>
+      </ul>
+
+      <dl class="info-list">
+        <div>
+          <dt>所在地</dt>
+          <dd>城市，国家</dd>
+        </div>
+        <div>
+          <dt>语言</dt>
+          <dd>中文 · English</dd>
+        </div>
+        <div>
+          <dt>方向</dt>
+          <dd>诊断 / 监护 / 可穿戴</dd>
+        </div>
+      </dl>
+
+      <nav class="contact-block" aria-label="联系方式">
+        <a href="mailto:your.email@example.com">your.email@example.com</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+
+      <p class="copyright">© <span id="year"></span></p>
+    </aside>
+
+    <!-- 右侧：Selected Work -->
+    <main class="panel panel-right">
+      <header class="work-header">
+        <p class="eyebrow">Selected Work</p>
+        <h2>精选作品</h2>
+        <p class="work-intro">点击项目查看完整设计过程与成果。</p>
+      </header>
+
+      <div class="work-list" id="work-list">
+        <!-- 由 script.js 根据 projects.js 生成 -->
+      </div>
+    </main>
+  </div>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
