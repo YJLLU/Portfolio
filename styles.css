@@ -121,28 +121,21 @@ strong {
 
 .avatar-wrap {
   position: relative;
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--mint-soft);
   margin-bottom: 1.25rem;
-}
-
-.avatar-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  color: var(--ink-muted);
+  flex-shrink: 0;
+  border: 2px solid var(--border);
 }
 
 .avatar {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
 }
 
 .bio p {
