@@ -54,7 +54,7 @@ strong {
   color: var(--ink);
 }
 
-/* —— 左右分栏：左 1/3 · 右 2/3（Flex 固定比例）—— */
+/* —— 左右分栏：左约 1/6 · 右约 5/6（Flex 固定比例）—— */
 .layout,
 .project-layout {
   display: flex;
@@ -69,13 +69,13 @@ strong {
 }
 
 .panel-left {
-  flex: 0 0 33.333%;
-  width: 33.333%;
+  flex: 0 0 16.667%;
+  width: 16.667%;
   min-width: 0;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1rem, 1.5vw, 1.25rem);
   background: var(--bg-panel);
   border-right: 2px solid var(--border);
   display: flex;
@@ -84,8 +84,8 @@ strong {
 }
 
 .panel-right {
-  flex: 0 0 66.667%;
-  width: 66.667%;
+  flex: 0 0 83.333%;
+  width: 83.333%;
   min-width: 0;
   height: 100%;
   overflow-x: hidden;
@@ -106,7 +106,7 @@ strong {
 
 .name {
   font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
   font-weight: 400;
   line-height: 1.2;
   margin: 0 0 0.35rem;
@@ -121,8 +121,8 @@ strong {
 
 .avatar-wrap {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--mint-soft);
@@ -146,9 +146,10 @@ strong {
 }
 
 .bio p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.65rem;
   color: var(--ink-muted);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
 }
 
 .skills {
@@ -161,9 +162,9 @@ strong {
 }
 
 .skills li {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  padding: 0.35rem 0.7rem;
+  padding: 0.3rem 0.55rem;
   background: var(--mint-soft);
   color: var(--teal);
   border-radius: 999px;
@@ -178,10 +179,16 @@ strong {
 }
 
 .info-list > div {
-  display: grid;
-  grid-template-columns: 3.75rem 1fr;
-  gap: 0.35rem 0.5rem;
-  font-size: 0.8125rem;
+  display: block;
+  font-size: 0.75rem;
+}
+
+.info-list dt {
+  margin-bottom: 0.1rem;
+}
+
+.info-list dd {
+  margin-bottom: 0.5rem;
 }
 
 .info-list dt {
