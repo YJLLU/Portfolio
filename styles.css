@@ -184,20 +184,13 @@ strong {
 }
 
 .info-list dt {
+  font-weight: 600;
+  color: var(--ink-muted);
   margin-bottom: 0.1rem;
 }
 
 .info-list dd {
-  margin-bottom: 0.5rem;
-}
-
-.info-list dt {
-  font-weight: 600;
-  color: var(--ink-muted);
-}
-
-.info-list dd {
-  margin: 0;
+  margin: 0 0 0.5rem;
 }
 
 .contact-block {
