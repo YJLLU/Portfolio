@@ -29,7 +29,6 @@ if (workList && typeof PROJECTS !== "undefined") {
         p.summary +
         "</p>" +
         "</div>" +
-        '<span class="work-item-arrow" aria-hidden="true">→</span>' +
         "</a>"
       );
     })
