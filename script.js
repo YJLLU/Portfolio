@@ -37,7 +37,7 @@ if (workList && typeof PROJECTS !== "undefined") {
   workList.querySelectorAll(".work-item-thumb img").forEach(function (img) {
     img.addEventListener("error", function () {
       const wrap = img.parentElement;
-      const title = img.alt || "作品";
+      const title = img.alt || "Project";
       const el = document.createElement("div");
       el.className = "placeholder";
       el.textContent = title;

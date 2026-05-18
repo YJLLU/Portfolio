@@ -14,7 +14,7 @@ function imageBlock(src, alt, caption) {
     alt +
     '" onerror="this.outerHTML=\'<div class=placeholder>' +
     cap +
-    " — 将图片放入 images/</div>'\" />" +
+    " — Add image to images/</div>'\" />" +
     "</div>" +
     (caption ? "<figcaption>" + caption + "</figcaption>" : "") +
     "</figure>"
@@ -29,13 +29,13 @@ function renderProject(project) {
   document.getElementById("detail-summary").textContent = project.summary;
 
   document.getElementById("detail-meta").innerHTML =
-    '<div><dt>角色</dt><dd>' +
+    '<div><dt>Role</dt><dd>' +
     project.role +
     "</dd></div>" +
-    '<div><dt>年份</dt><dd>' +
+    '<div><dt>Year</dt><dd>' +
     project.year +
     "</dd></div>" +
-    '<div><dt>客户</dt><dd>' +
+    '<div><dt>Project</dt><dd>' +
     project.client +
     "</dd></div>";
 
@@ -52,7 +52,7 @@ function renderProject(project) {
     .join("");
 
   const heroFallback =
-    '<div class="placeholder">主图：' + project.thumb + "</div>";
+    '<div class="placeholder">Hero image: ' + project.thumb + "</div>";
 
   document.getElementById("detail-main").innerHTML =
     '<section class="detail-hero">' +
@@ -70,27 +70,27 @@ function renderProject(project) {
     "</p>" +
     "</section>" +
     '<section class="detail-section">' +
-    "<h2>设计挑战</h2>" +
+    "<h2>Challenge</h2>" +
     "<p>" +
     project.challenge +
     "</p>" +
     "</section>" +
     '<section class="detail-section">' +
-    "<h2>设计过程</h2>" +
+    "<h2>Process</h2>" +
     "<ul>" +
     approachHtml +
     "</ul>" +
     "</section>" +
     '<section class="detail-section">' +
-    "<h2>成果</h2>" +
+    "<h2>Outcome</h2>" +
     "<p>" +
     project.outcome +
     "</p>" +
     "</section>" +
     '<section class="detail-section">' +
-    "<h2>设计展示</h2>" +
+    "<h2>Gallery</h2>" +
     '<div class="detail-gallery">' +
-    (galleryHtml || imageBlock(project.thumb, project.title, "主视觉")) +
+    (galleryHtml || imageBlock(project.thumb, project.title, "Hero visual")) +
     "</div>" +
     "</section>";
 }
@@ -98,8 +98,8 @@ function renderProject(project) {
 function renderNotFound() {
   document.getElementById("detail-main").innerHTML =
     '<div class="not-found">' +
-    "<p>未找到该项目。</p>" +
-    '<p><a href="index.html">返回首页</a></p>' +
+    "<p>Project not found.</p>" +
+    '<p><a href="index.html">Back to home</a></p>' +
     "</div>";
 }
 
