@@ -1,30 +1,130 @@
 const PROJECTS = {
-  "colonoscope": {
+  colonoscope: {
     id: "colonoscope",
     tag: "Innovation Design",
     category: "endoscopy",
     title: "Ergonomic Colonoscope Innovation",
-    summary: "Reducing physician fatigue and improving control during colonoscopy procedures",
-    thumb: "images/colonoscope.jpg",
-    role: "R&D Design Engineer",
+    summary: "",
+    thumb: "images/colonoscope-solution-features.png",
+    coverSlides: [
+      "images/colonoscope-distal-tip-articulated.png",
+      "images/colonoscope-distal-tip-link.png",
+      "images/colonoscope-distal-tip-segment-1.png",
+      "images/colonoscope-distal-tip-segment-2.png",
+      "images/colonoscope-distal-tip-segment-3.png",
+      "images/colonoscope-distal-tip-segment-4.png",
+      "images/colonoscope-distal-tip-segment-5.png",
+      "images/colonoscope-handle-front.png",
+      "images/colonoscope-handle-side.png",
+      "images/colonoscope-solution-features.png",
+      "images/colonoscope-spool-prototype.png",
+    ],
+    coverInterval: 2000,
+    comparison: {
+      problem: {
+        src: "images/colonoscope-traditional.png",
+        alt: "Traditional colonoscope causing hand fatigue",
+        caption: "Traditional colonoscope — repetitive thumb pressure on angulation wheels leads to hand fatigue",
+      },
+      solution: {
+        main: {
+          src: "images/colonoscope-solution-features.png",
+          alt: "EnjoyScope with electronic joystick and haptic feedback",
+        },
+        aside: [
+          {
+            src: "images/colonoscope-handle-front.png",
+            alt: "EnjoyScope handle — front render",
+            caption: "Back View & Side View",
+          },
+          {
+            src: "images/colonoscope-handle-side.png",
+            alt: "EnjoyScope handle — side profile render",
+          },
+        ],
+      },
+    },
+    role: "R&D Design Engineer — Distal Tip & Operating Mechanism",
     year: "2025",
     client: "Clinical Innovation Project",
-    overview:
-      "An ergonomic colonoscope redesign focused on improving physician grip, torque control, and procedural comfort during extended colonoscopy cases.",
-    challenge:
-      "Conventional colonoscope handles contribute to wrist strain, thumb fatigue, and reduced precision during navigation and loop management—especially in prolonged procedures.",
-    approach: [
-      "Clinical observation and surgeon feedback sessions",
-      "Ergonomic grip studies and iterative handle prototyping",
-      "3D-printed functional models for form and control testing",
-      "Integration of user-centered adjustments for insertion and angulation",
-    ],
-    outcome:
-      "Developed a refined handle concept that improves grip stability and reduces perceived hand fatigue; validated through prototyping and structured clinician feedback.",
-    gallery: [
-      { src: "images/colonoscope.jpg", caption: "Ergonomic handle concept" },
-      { src: "images/colonoscope-sketch.jpg", caption: "Early ideation sketches" },
-      { src: "images/colonoscope-prototype.jpg", caption: "3D-printed prototype" },
+    designSections: [
+      {
+        id: "distal-tip",
+        title: "Distal Tip Design",
+        imageRows: [
+          [
+            {
+              src: "images/colonoscope-distal-tip-articulated.png",
+              alt: "Articulated distal tip segment stack",
+              compact: true,
+            },
+            {
+              src: "images/colonoscope-distal-tip-segment-1.png",
+              alt: "Distal tip segment — isometric view",
+            },
+            {
+              src: "images/colonoscope-distal-tip-segment-2.png",
+              alt: "Distal tip segment — top view",
+            },
+            {
+              src: "images/colonoscope-distal-tip-segment-4.png",
+              alt: "Distal tip segment — ring with pivot tabs",
+            },
+          ],
+          [
+            {
+              video: true,
+              src: "videos/colonoscope-distal-tip-demo.mp4",
+              caption: "Functional prototype — distal tip articulation",
+              autoplay: true,
+            },
+            {
+              src: "images/colonoscope-distal-tip-segment-3.png",
+              alt: "Distal tip segment — semi-circular link",
+            },
+            {
+              src: "images/colonoscope-distal-tip-segment-5.png",
+              alt: "Distal tip segment — mounting ring",
+            },
+            {
+              src: "images/colonoscope-distal-tip-link.png",
+              alt: "Distal tip articulation link",
+              compact: true,
+            },
+          ],
+        ],
+      },
+      {
+        id: "operating-mechanism",
+        title: "Operation: Spool Mechanism",
+        imageRows: [
+          [
+            {
+              src: "images/colonoscope-spool-mechanism-render.png",
+              alt: "Spool mechanism — CAD render",
+              caption: "Dual-track spool — bidirectional cable winding",
+            },
+            {
+              video: true,
+              src: "videos/colonoscope-spool-demo-1.mp4",
+              caption: "Spool mechanism — operation demonstration",
+              autoplay: true,
+            },
+            {
+              src: "images/colonoscope-spool-prototype.png",
+              alt: "Spool mechanism — motor and gearbox prototype",
+              caption: "Functional prototype — motor, gearbox, and spool assembly",
+              compact: true,
+            },
+            {
+              video: true,
+              src: "videos/colonoscope-spool-demo-2.mp4",
+              caption: "Spool mechanism — cable pull test",
+              autoplay: true,
+            },
+          ],
+        ],
+      },
     ],
   },
 };

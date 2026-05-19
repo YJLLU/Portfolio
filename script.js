@@ -2,6 +2,72 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 const workList = document.getElementById("work-list");
 
+function thumbMarkup(project) {
+  const slides =
+    project.coverSlides && project.coverSlides.length
+      ? project.coverSlides
+      : project.thumb
+        ? [project.thumb]
+        : [];
+
+  if (slides.length <= 1) {
+    const src = slides[0] || "";
+    return (
+      '<div class="work-item-thumb">' +
+      '<img src="' +
+      src +
+      '" alt="' +
+      project.title +
+      '" />' +
+      "</div>"
+    );
+  }
+
+  return (
+    '<div class="work-item-thumb work-item-thumb--slideshow" data-cover-interval="' +
+    (project.coverInterval || 2000) +
+    '">' +
+    '<div class="work-item-slideshow" role="img" aria-label="' +
+    project.title +
+    ' cover slideshow"></div>' +
+    "</div>"
+  );
+}
+
+function initCoverSlideshow(thumbEl, slides, intervalMs) {
+  const inner = thumbEl.querySelector(".work-item-slideshow");
+  if (!inner) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const validSlides = slides.filter(Boolean);
+
+  validSlides.forEach(function (src, index) {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "";
+    img.className = "work-item-slide";
+    img.loading = index === 0 ? "eager" : "lazy";
+    img.decoding = "async";
+    if (index === 0) img.classList.add("is-active");
+    img.addEventListener("error", function () {
+      img.remove();
+    });
+    inner.appendChild(img);
+  });
+
+  const imgs = inner.querySelectorAll(".work-item-slide");
+  if (imgs.length <= 1) return;
+
+  if (reducedMotion) return;
+
+  let current = 0;
+  window.setInterval(function () {
+    imgs[current].classList.remove("is-active");
+    current = (current + 1) % imgs.length;
+    imgs[current].classList.add("is-active");
+  }, intervalMs);
+}
+
 if (workList && typeof PROJECTS !== "undefined") {
   const items = Object.values(PROJECTS);
 
@@ -10,14 +76,10 @@ if (workList && typeof PROJECTS !== "undefined") {
       return (
         '<a class="work-item" href="project.html?id=' +
         p.id +
+        '" data-project-id="' +
+        p.id +
         '">' +
-        '<div class="work-item-thumb">' +
-        '<img src="' +
-        p.thumb +
-        '" alt="' +
-        p.title +
-        '" />' +
-        "</div>" +
+        thumbMarkup(p) +
         '<div class="work-item-body">' +
         '<span class="tag">' +
         p.tag +
@@ -25,16 +87,14 @@ if (workList && typeof PROJECTS !== "undefined") {
         "<h3>" +
         p.title +
         "</h3>" +
-        "<p>" +
-        p.summary +
-        "</p>" +
+        (p.summary ? "<p>" + p.summary + "</p>" : "") +
         "</div>" +
         "</a>"
       );
     })
     .join("");
 
-  workList.querySelectorAll(".work-item-thumb img").forEach(function (img) {
+  workList.querySelectorAll(".work-item-thumb:not(.work-item-thumb--slideshow) img").forEach(function (img) {
     img.addEventListener("error", function () {
       const wrap = img.parentElement;
       const title = img.alt || "Project";
@@ -43,5 +103,14 @@ if (workList && typeof PROJECTS !== "undefined") {
       el.textContent = title;
       wrap.replaceChildren(el);
     });
+  });
+
+  items.forEach(function (p) {
+    if (!p.coverSlides || p.coverSlides.length <= 1) return;
+    const thumbEl = workList.querySelector(
+      '[data-project-id="' + p.id + '"] .work-item-thumb--slideshow'
+    );
+    if (!thumbEl) return;
+    initCoverSlideshow(thumbEl, p.coverSlides, p.coverInterval || 2000);
   });
 }
