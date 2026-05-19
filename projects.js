@@ -127,4 +127,58 @@ const PROJECTS = {
       },
     ],
   },
+  "insulin-syringe": {
+    id: "insulin-syringe",
+    tag: "Medical Product Design",
+    category: "diabetes-care",
+    title: "Innovated Insulin Syringe Design for Senior Patients",
+    summary: "",
+    thumb: "images/insulin-syringe-thumb.png",
+    role: "Product Designer — Human Factors & Prototyping",
+    year: "2024",
+    client: "Academic Design Project",
+    comparison: {
+      problem: {
+        src: "images/insulin-syringe-traditional.png",
+        alt: "Conventional insulin syringe",
+        caption:
+          "Conventional syringe — small grip, fine markings, and multi-step dosing are difficult for senior users",
+      },
+      solution: {
+        main: {
+          src: "images/insulin-syringe-solution.png",
+          alt: "Innovated insulin syringe for senior patients",
+        },
+        aside: [
+          {
+            src: "images/insulin-syringe-detail-1.png",
+            alt: "Syringe ergonomic grip detail",
+            caption: "Grip & Dose Window",
+          },
+          {
+            src: "images/insulin-syringe-detail-2.png",
+            alt: "Syringe dose marking detail",
+          },
+        ],
+      },
+    },
+    designSections: [
+      {
+        id: "user-needs",
+        title: "User Research & Needs",
+      },
+      {
+        id: "ergonomic-design",
+        title: "Ergonomic Design",
+      },
+      {
+        id: "dose-clarity",
+        title: "Dose Clarity & Safety",
+      },
+      {
+        id: "prototype",
+        title: "Prototype & Validation",
+      },
+    ],
+  },
 };
