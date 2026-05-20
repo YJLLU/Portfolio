@@ -3,6 +3,18 @@ document.getElementById("year").textContent = new Date().getFullYear();
 const workList = document.getElementById("work-list");
 
 function thumbMarkup(project) {
+  if (project.coverVideo) {
+    return (
+      '<div class="work-item-thumb work-item-thumb--video">' +
+      '<video src="' +
+      project.coverVideo +
+      '" autoplay muted loop playsinline preload="auto" aria-label="' +
+      project.title +
+      '"></video>' +
+      "</div>"
+    );
+  }
+
   const slides =
     project.coverSlides && project.coverSlides.length
       ? project.coverSlides
@@ -69,7 +81,12 @@ function initCoverSlideshow(thumbEl, slides, intervalMs) {
 }
 
 if (workList && typeof PROJECTS !== "undefined") {
-  const items = Object.values(PROJECTS);
+  const items =
+    typeof PROJECT_ORDER !== "undefined" && PROJECT_ORDER.length
+      ? PROJECT_ORDER.map(function (id) {
+          return PROJECTS[id];
+        }).filter(Boolean)
+      : Object.values(PROJECTS);
 
   workList.innerHTML = items
     .map(function (p) {

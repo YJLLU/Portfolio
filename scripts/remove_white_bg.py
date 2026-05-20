@@ -8,7 +8,7 @@ import numpy as np
 
 IMAGES_DIR = Path(__file__).resolve().parent.parent / "images"
 SKIP = {"profile.png"}
-ONLY_PREFIX = "colonoscope-distal-tip-"
+ONLY_PREFIXES = ("colonoscope-distal-tip-", "insulin-syringe-buildup-")
 WHITE_THRESHOLD = 238
 WHITE_SOFTNESS = 18
 DARK_TOLERANCE = 42
@@ -70,7 +70,7 @@ def main() -> None:
     for path in sorted(IMAGES_DIR.glob("*.png")):
         if path.name in SKIP:
             continue
-        if not path.name.startswith(ONLY_PREFIX):
+        if not path.name.startswith(ONLY_PREFIXES):
             continue
         process_file(path)
 

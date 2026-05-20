@@ -3,6 +3,145 @@ function getProjectId() {
   return params.get("id");
 }
 
+function mediaSplitPanel(panel) {
+  const heading = panel.heading || "";
+  let inner = "";
+
+  if (panel.video) {
+    const label = panel.video.caption || panel.video.heading || heading;
+    inner =
+      '<div class="comparison-split-media comparison-split-media--video">' +
+      '<video src="' +
+      panel.video.src +
+      '" autoplay muted loop playsinline preload="auto" aria-label="' +
+      label +
+      '"></video>' +
+      "</div>";
+  } else if (panel.image) {
+    inner =
+      '<div class="comparison-split-media">' +
+      '<figure class="comparison-card comparison-solution-item comparison-solution-main">' +
+      '<div class="comparison-visual">' +
+      '<img src="' +
+      panel.image.src +
+      '" alt="' +
+      (panel.image.alt || heading) +
+      '" />' +
+      "</div>" +
+      "</figure>" +
+      "</div>";
+  } else if (panel.buildup && panel.buildup.steps && panel.buildup.steps.length) {
+    inner = buildupStepperBlock(panel.buildup);
+  }
+
+  return (
+    '<div class="comparison-split-panel">' +
+    '<h2 class="comparison-split-title">' +
+    heading +
+    "</h2>" +
+    inner +
+    "</div>"
+  );
+}
+
+function buildupStepperBlock(buildup) {
+  const steps = buildup.steps || [];
+  const interval = buildup.interval || 2000;
+  const slidesHtml = steps
+    .map(function (s, i) {
+      return (
+        '<img class="buildup-stepper-slide' +
+        (i === 0 ? " is-active" : "") +
+        '" src="' +
+        s.src +
+        '" alt="' +
+        (s.alt || "Assembly step " + (i + 1)) +
+        '" loading="' +
+        (i === 0 ? "eager" : "lazy") +
+        '" decoding="async" />'
+      );
+    })
+    .join("");
+
+  return (
+    '<div class="comparison-split-media comparison-split-media--buildup">' +
+    '<div class="buildup-stepper" data-buildup-stepper data-interval="' +
+    interval +
+    '">' +
+    '<div class="buildup-stepper-slideshow" role="img" aria-label="Design build-up animation">' +
+    slidesHtml +
+    "</div>" +
+    '<p class="buildup-stepper-meta">' +
+    '<span class="buildup-stepper-counter">1</span> / ' +
+    '<span class="buildup-stepper-total">' +
+    steps.length +
+    "</span>" +
+    "</p>" +
+    "</div>" +
+    "</div>"
+  );
+}
+
+function initBuildupSteppers(root) {
+  const scope = root || document;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  scope.querySelectorAll("[data-buildup-stepper]").forEach(function (el) {
+    if (el.dataset.buildupInit === "1") return;
+    el.dataset.buildupInit = "1";
+
+    const slides = el.querySelectorAll(".buildup-stepper-slide");
+    if (!slides.length) return;
+
+    const intervalMs =
+      parseInt(el.getAttribute("data-interval"), 10) || 2000;
+    const counter = el.querySelector(".buildup-stepper-counter");
+    let current = 0;
+    let timer = null;
+
+    function goTo(index) {
+      slides[current].classList.remove("is-active");
+      current = index;
+      slides[current].classList.add("is-active");
+      if (counter) counter.textContent = String(current + 1);
+    }
+
+    function tick() {
+      goTo((current + 1) % slides.length);
+    }
+
+    function start() {
+      if (reducedMotion || slides.length <= 1) return;
+      stop();
+      timer = window.setInterval(tick, intervalMs);
+    }
+
+    function stop() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    start();
+    el.addEventListener("mouseenter", stop);
+    el.addEventListener("mouseleave", start);
+  });
+}
+
+function mediaSplitBlock(left, right, extraClass) {
+  return (
+    '<div class="comparison-render-split' +
+    (extraClass ? " " + extraClass : "") +
+    '">' +
+    mediaSplitPanel(left) +
+    mediaSplitPanel(right) +
+    "</div>"
+  );
+}
+
 function comparisonBlock(comparison) {
   if (!comparison) return "";
 
@@ -13,18 +152,23 @@ function comparisonBlock(comparison) {
   const legacySolutions = Array.isArray(comparison.solution)
     ? comparison.solution
     : [];
+  const sectionTitle = comparison.title || "Problem → Solution";
+  const singleLayout = comparison.layout === "single";
+  const splitLayout = comparison.layout === "split";
+  const solutionVideo = solution.video || null;
 
-  const problemHtml =
-    '<figure class="comparison-card comparison-problem">' +
-    '<div class="comparison-visual">' +
-    '<img src="' +
-    problem.src +
-    '" alt="' +
-    (problem.alt || "Traditional colonoscope") +
-    '" />' +
-    "</div>" +
-    (problem.caption ? "<figcaption>" + problem.caption + "</figcaption>" : "") +
-    "</figure>";
+  const problemHtml = problem
+    ? '<figure class="comparison-card comparison-problem">' +
+      '<div class="comparison-visual">' +
+      '<img src="' +
+      problem.src +
+      '" alt="' +
+      (problem.alt || "Traditional colonoscope") +
+      '" />' +
+      "</div>" +
+      (problem.caption ? "<figcaption>" + problem.caption + "</figcaption>" : "") +
+      "</figure>"
+    : "";
 
   function comparisonFigure(item, extraClass) {
     const cls =
@@ -108,8 +252,48 @@ function comparisonBlock(comparison) {
     );
   }
 
+  function comparisonRenderVideoSplit(main, video, leftTitle) {
+    const rightTitle = video.heading || video.caption || "Design Animation";
+    const renderHeading = leftTitle || "Rendered Design";
+
+    return (
+      '<div class="comparison-render-split">' +
+      '<div class="comparison-split-panel">' +
+      '<h2 class="comparison-split-title">' +
+      renderHeading +
+      "</h2>" +
+      '<div class="comparison-split-media">' +
+      '<figure class="comparison-card comparison-solution-item comparison-solution-main">' +
+      '<div class="comparison-visual">' +
+      comparisonVisualImg(main) +
+      "</div>" +
+      "</figure>" +
+      "</div>" +
+      "</div>" +
+      '<div class="comparison-split-panel">' +
+      '<h2 class="comparison-split-title">' +
+      rightTitle +
+      "</h2>" +
+      '<div class="comparison-split-media comparison-split-media--video">' +
+      '<video src="' +
+      video.src +
+      '" autoplay muted loop playsinline preload="auto" aria-label="' +
+      rightTitle +
+      '"></video>' +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
+  }
+
   let solutionHtml = "";
-  if (solutionMain) {
+  if (solutionMain && solutionVideo && splitLayout) {
+    solutionHtml = comparisonRenderVideoSplit(
+      solutionMain,
+      solutionVideo,
+      sectionTitle
+    );
+  } else if (solutionMain) {
     solutionHtml = comparisonSolutionGroup(solutionMain, solutionAside);
   } else {
     solutionHtml = legacySolutions
@@ -119,15 +303,25 @@ function comparisonBlock(comparison) {
       .join("");
   }
 
+  const showSectionHeading = !(splitLayout && solutionMain && solutionVideo);
+
   return (
     '<section class="detail-section comparison-section">' +
-    "<h2>Problem → Solution</h2>" +
-    '<div class="comparison-flow">' +
-    problemHtml +
-    '<div class="comparison-arrow" aria-hidden="true">' +
-    '<span class="arrow-line"></span>' +
-    '<span class="arrow-head"></span>' +
-    "</div>" +
+    (showSectionHeading ? "<h2>" + sectionTitle + "</h2>" : "") +
+    '<div class="' +
+    (splitLayout
+      ? "comparison-flow comparison-flow--split"
+      : singleLayout
+        ? "comparison-flow comparison-flow--single"
+        : "comparison-flow") +
+    '">' +
+    (singleLayout || splitLayout || !problem
+      ? ""
+      : problemHtml +
+        '<div class="comparison-arrow" aria-hidden="true">' +
+        '<span class="arrow-line"></span>' +
+        '<span class="arrow-head"></span>' +
+        "</div>") +
     '<div class="comparison-solutions">' +
     solutionHtml +
     "</div>" +
@@ -153,14 +347,12 @@ function designSectionsBlock(sections) {
 
       const imageRowHtml =
         section.imageRow && section.imageRow.length
-          ? '<div class="design-gallery-row">' +
+          ? '<div class="design-gallery-row' +
+            (section.imageRowClass ? " " + section.imageRowClass : "") +
+            '">' +
             section.imageRow
               .map(function (img) {
-                return imageBlock(
-                  img.src,
-                  img.alt || img.caption || section.title,
-                  img.caption
-                );
+                return rowItemBlock(img, section.title);
               })
               .join("") +
             "</div>"
@@ -212,6 +404,15 @@ function designSectionsBlock(sections) {
           )
         : "";
 
+      const splitHtml =
+        section.layout === "split" && section.split
+          ? mediaSplitBlock(
+              section.split.left,
+              section.split.right,
+              section.splitClass
+            )
+          : "";
+
       const mediaRowHtml = section.mediaRow
         ? '<div class="design-media-row">' +
           imageBlock(
@@ -232,20 +433,23 @@ function designSectionsBlock(sections) {
         : "";
 
       const galleryHtml =
+        splitHtml ||
         imageRowsHtml +
-        imagesHtml +
-        imageRowHtml +
-        imageGridHtml +
-        mediaRowHtml +
-        videoHtml;
+          imagesHtml +
+          imageRowHtml +
+          imageGridHtml +
+          mediaRowHtml +
+          videoHtml;
+
+      const showSectionTitle = !(section.layout === "split" && section.split);
 
       return (
         '<section class="detail-section design-section" id="' +
         section.id +
         '">' +
-        "<h2>" +
-        section.title +
-        "</h2>" +
+        (showSectionTitle && section.title
+          ? "<h2>" + section.title + "</h2>"
+          : "") +
         (section.description
           ? '<p class="design-section-desc">' + section.description + "</p>"
           : "") +
@@ -260,15 +464,26 @@ function designSectionsBlock(sections) {
 
 function rowItemBlock(item, sectionTitle) {
   if (item.column && item.column.length) {
-    return (
+    const columnHtml =
       '<div class="design-gallery-column">' +
       item.column
         .map(function (colItem) {
           return rowItemBlock(colItem, sectionTitle);
         })
         .join("") +
-      "</div>"
-    );
+      "</div>";
+    if (item.heading || item.headingSpacer) {
+      const headingHtml = item.headingSpacer
+        ? '<h2 class="design-gallery-heading design-gallery-heading--spacer" aria-hidden="true">&#8203;</h2>'
+        : '<h2 class="design-gallery-heading">' + item.heading + "</h2>";
+      return (
+        '<div class="design-gallery-panel">' +
+        headingHtml +
+        columnHtml +
+        "</div>"
+      );
+    }
+    return columnHtml;
   }
   if (item.video) {
     return videoBlock(
@@ -279,25 +494,38 @@ function rowItemBlock(item, sectionTitle) {
       "gallery-item--segment-video"
     );
   }
-  return imageBlock(
+  var extraClass = "";
+  if (item.compact) extraClass = "gallery-item--segment-compact";
+  if (item.square) {
+    extraClass = extraClass
+      ? extraClass + " gallery-item--square-crop"
+      : "gallery-item--square-crop";
+  }
+  const figureHtml = imageBlock(
     item.src,
-    item.alt || item.caption || sectionTitle,
-    item.caption,
-    item.compact ? "gallery-item--segment-compact" : ""
+    item.alt || item.heading || item.caption || sectionTitle,
+    item.heading ? null : item.caption,
+    extraClass
   );
+  if (item.heading || item.headingSpacer) {
+    const headingHtml = item.headingSpacer
+      ? '<h2 class="design-gallery-heading design-gallery-heading--spacer" aria-hidden="true">&#8203;</h2>'
+      : '<h2 class="design-gallery-heading">' + item.heading + "</h2>";
+    return (
+      '<div class="design-gallery-panel">' +
+      headingHtml +
+      figureHtml +
+      "</div>"
+    );
+  }
+  return figureHtml;
 }
 
 function videoBlock(src, alt, caption, autoplay, extraClass) {
   const cap = caption || alt;
-  const videoClass = autoplay
-    ? "gallery-item--video gallery-item--autoplay"
-    : "gallery-item--video";
   const figureClass = extraClass
-    ? "gallery-item " + videoClass + " " + extraClass
-    : "gallery-item " + videoClass;
-  const videoAttrs = autoplay
-    ? ' autoplay muted loop playsinline preload="auto"'
-    : ' controls playsinline preload="metadata"';
+    ? "gallery-item gallery-item--video gallery-item--autoplay " + extraClass
+    : "gallery-item gallery-item--video gallery-item--autoplay";
   return (
     '<figure class="' +
     figureClass +
@@ -305,9 +533,7 @@ function videoBlock(src, alt, caption, autoplay, extraClass) {
     '<div class="gallery-item-visual">' +
     '<video src="' +
     src +
-    '"' +
-    videoAttrs +
-    ' aria-label="' +
+    '" autoplay muted loop playsinline preload="auto" aria-label="' +
     alt +
     '"></video>' +
     "</div>" +
@@ -373,15 +599,24 @@ function renderProject(project) {
   const heroFallback =
     '<div class="placeholder">Hero image: ' + project.thumb + "</div>";
 
-  const heroHtml = project.comparison
-    ? project.overview
-      ? '<section class="detail-hero detail-hero--text-only">' +
-        "<p>" +
-        project.overview +
-        "</p>" +
-        "</section>"
-      : ""
-    : '<section class="detail-hero">' +
+  const heroHtml =
+    project.showHero === false
+      ? project.overview
+        ? '<section class="detail-hero detail-hero--text-only">' +
+          "<p>" +
+          project.overview +
+          "</p>" +
+          "</section>"
+        : ""
+      : project.comparison
+        ? project.overview
+          ? '<section class="detail-hero detail-hero--text-only">' +
+            "<p>" +
+            project.overview +
+            "</p>" +
+            "</section>"
+          : ""
+        : '<section class="detail-hero">' +
       '<div class="detail-hero-visual">' +
       '<img src="' +
       project.thumb +
@@ -392,9 +627,10 @@ function renderProject(project) {
       '\'" />' +
       "</div>" +
       (project.overview ? "<p>" + project.overview + "</p>" : "") +
-      "</section>";
+          "</section>";
 
-  document.getElementById("detail-main").innerHTML =
+  const main = document.getElementById("detail-main");
+  main.innerHTML =
     heroHtml +
     comparisonBlock(project.comparison) +
     designSectionsHtml +
@@ -406,6 +642,7 @@ function renderProject(project) {
         "</div>" +
         "</section>"
       : "");
+  initBuildupSteppers(main);
 }
 
 function renderNotFound() {

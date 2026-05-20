@@ -69,6 +69,15 @@ body {
 
 body.page-project {
   overflow: hidden;
+  background: #ffffff;
+}
+
+body.page-project .panel-left {
+  background: #ffffff;
+}
+
+body.page-project .panel-right {
+  background: #ffffff;
 }
 
 img {
@@ -251,6 +260,16 @@ strong {
   line-height: 1.5;
 }
 
+.info-list dd a {
+  color: var(--blue);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.info-list dd a:hover {
+  color: var(--blue-light);
+}
+
 .contact-block {
   display: flex;
   flex-direction: column;
@@ -342,10 +361,24 @@ strong {
   background: var(--gradient-media);
 }
 
-.work-item-thumb:not(.work-item-thumb--slideshow) > img {
+.work-item-thumb:not(.work-item-thumb--slideshow):not(.work-item-thumb--video) {
+  background: linear-gradient(160deg, #eef4ff 0%, #dbeafe 100%);
+}
+
+.work-item-thumb:not(.work-item-thumb--slideshow):not(.work-item-thumb--video) > img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+}
+
+.work-item-thumb--video video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: linear-gradient(160deg, #eef4ff 0%, #dbeafe 100%);
 }
 
 .work-item-thumb--slideshow {
@@ -490,12 +523,24 @@ strong {
   margin-bottom: 2.5rem;
 }
 
+.panel-detail .detail-section {
+  margin-bottom: 3.75rem;
+}
+
+.panel-detail .detail-section:last-child {
+  margin-bottom: 0;
+}
+
 .detail-section h2 {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 400;
   margin: 0 0 0.75rem;
   color: var(--ink);
+}
+
+.panel-detail .design-section > h2 {
+  margin-bottom: 0.35rem;
 }
 
 .detail-section p {
@@ -568,6 +613,209 @@ strong {
   align-items: center;
   width: 100%;
   max-width: 100%;
+}
+
+.comparison-flow--single {
+  grid-template-columns: 1fr;
+  justify-items: start;
+  max-width: 100%;
+  margin: 0;
+}
+
+.comparison-flow--single .comparison-solutions {
+  width: 100%;
+  max-width: min(48rem, 92%);
+}
+
+.comparison-flow--single .comparison-solution-group,
+.comparison-flow--single .comparison-solution-align {
+  width: 100%;
+}
+
+.comparison-flow--single .comparison-solution-main {
+  max-width: 100%;
+  margin: 0;
+}
+
+.comparison-flow--single .comparison-solution-main .comparison-visual {
+  text-align: left;
+}
+
+.comparison-flow--single .comparison-solution-main .comparison-visual img {
+  width: auto;
+  max-width: min(48rem, 92%);
+  max-height: min(82vh, 680px);
+  margin: 0;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Rendered design — image left, animation right */
+.comparison-flow--split {
+  grid-template-columns: 1fr;
+  max-width: 100%;
+  margin: 0;
+}
+
+.comparison-flow--split .comparison-solutions {
+  width: 100%;
+}
+
+.comparison-render-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.comparison-split-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.comparison-split-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.comparison-split-media {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 0;
+  max-height: none;
+}
+
+.comparison-split-media .comparison-card {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  display: block;
+}
+
+.comparison-split-media .comparison-visual {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  line-height: 0;
+}
+
+.comparison-split-media img,
+.comparison-split-media video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(68vh, 560px);
+  object-fit: contain;
+  object-position: left center;
+}
+
+.comparison-split-panel:first-child .comparison-split-media img {
+  object-position: left center;
+}
+
+.comparison-split-media--video {
+  background: transparent;
+  line-height: 0;
+}
+
+/* Video letterbox areas — match page panel gradient */
+.panel-detail .gallery-item--video .gallery-item-visual,
+.panel-detail .comparison-split-media--video {
+  background: transparent;
+}
+
+.panel-detail video {
+  background: transparent;
+}
+
+/* Project split rows — unified media size (render, animation, manufacturability videos) */
+.panel-detail .comparison-render-split {
+  align-items: flex-start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2.5rem;
+  justify-content: stretch;
+  width: 100%;
+  max-width: 100%;
+}
+
+.panel-detail .comparison-render-split .comparison-split-media {
+  width: 100%;
+  max-width: 100%;
+  height: min(48vh, 440px);
+  max-height: min(48vh, 440px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel-detail .comparison-render-split .comparison-split-media .comparison-card,
+.panel-detail .comparison-render-split .comparison-split-media .comparison-visual {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel-detail .comparison-render-split .comparison-split-media .comparison-visual img,
+.panel-detail .comparison-render-split .comparison-split-media video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: left top;
+}
+
+.panel-detail .comparison-section + .design-section {
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+}
+
+.panel-detail #manufacturability:has(+ #motion-animation) {
+  margin-bottom: 0;
+}
+
+.panel-detail #manufacturability + #motion-animation {
+  margin-top: 0;
+  padding-top: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .comparison-render-split {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-split-media img,
+  .comparison-split-media video {
+    max-height: min(50vh, 420px);
+  }
+
+  .panel-detail .comparison-render-split {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .panel-detail .comparison-render-split .comparison-split-media {
+    width: 100%;
+    max-width: 100%;
+    height: min(50vw, 380px);
+    max-height: min(50vw, 380px);
+  }
 }
 
 .comparison-card {
@@ -788,6 +1036,230 @@ strong {
   text-align: center;
 }
 
+.design-gallery-heading {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+}
+
+.design-gallery-heading--spacer {
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+}
+
+.design-gallery-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.design-gallery-panel .gallery-item {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.design-gallery-panel .gallery-item-visual {
+  width: 100%;
+}
+
+.design-gallery-row--cystoscope-hero {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 100%;
+  gap: 1rem 1.25rem;
+  align-items: start;
+}
+
+.design-gallery-row--cystoscope-hero .design-gallery-heading {
+  min-height: calc(1.5rem * 1.2 * 2);
+  width: 100%;
+}
+
+.design-gallery-row--cystoscope-hero .gallery-item--square-crop .gallery-item-visual {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  width: 100%;
+  max-width: min(20rem, 100%);
+}
+
+.design-gallery-row--cystoscope-hero .design-gallery-panel .gallery-item--square-crop {
+  width: 100%;
+  max-width: min(20rem, 100%);
+}
+
+.design-gallery-row--cystoscope-hero .gallery-item--square-crop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.design-gallery-row--cystoscope-hero .gallery-item:not(.gallery-item--square-crop) img {
+  width: 100%;
+  height: auto;
+  max-height: min(48vh, 440px);
+  object-fit: contain;
+  object-position: left top;
+}
+
+#rendered-design .design-gallery {
+  max-width: 100%;
+}
+
+.design-gallery-row--two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.design-gallery-row--cystoscope-concepts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 100%;
+  gap: 1rem 1.25rem;
+  align-items: start;
+}
+
+.design-gallery-row--cystoscope-concepts .design-gallery-heading {
+  min-height: calc(1.5rem * 1.2 * 2);
+  width: 100%;
+}
+
+.design-gallery-row--cystoscope-concepts .gallery-item-visual {
+  width: 100%;
+  max-width: min(16rem, 100%);
+}
+
+.design-gallery-row--cystoscope-concepts img {
+  width: 100%;
+  height: auto;
+  max-height: min(34vh, 260px);
+  object-fit: contain;
+  object-position: left top;
+}
+
+#concepts-handle-design .design-gallery {
+  max-width: 100%;
+}
+
+#concepts-design .design-gallery,
+#ua-hardware .design-gallery {
+  max-width: 100%;
+}
+
+#concepts-design .design-gallery-row--cystoscope-concepts,
+#ua-hardware .design-gallery-row--cystoscope-concepts {
+  gap: 1.25rem 2rem;
+}
+
+#concepts-design .design-gallery-row--cystoscope-concepts .gallery-item-visual,
+#ua-hardware .design-gallery-row--cystoscope-concepts .gallery-item-visual {
+  max-width: 100%;
+}
+
+#concepts-design .design-gallery-row--cystoscope-concepts img,
+#ua-hardware .design-gallery-row--cystoscope-concepts img {
+  width: 100%;
+  max-height: min(58vh, 540px);
+  object-fit: contain;
+  object-position: left top;
+}
+
+#ua-demo .design-gallery .gallery-item--autoplay {
+  width: 100%;
+  max-width: 100%;
+}
+
+#ua-demo .design-gallery .gallery-item--autoplay video {
+  width: 100%;
+  max-height: min(68vh, 620px);
+  object-fit: contain;
+  object-position: left top;
+}
+
+/* Title on row 1, media on row 2 — aligned tops across columns */
+.design-gallery-row--media-below-title {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+}
+
+.design-gallery-row--media-below-title .design-gallery-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  gap: 0.35rem;
+  align-items: start;
+}
+
+.design-gallery-row--media-below-title .design-gallery-heading {
+  min-height: unset;
+  align-self: start;
+}
+
+.design-gallery-row--media-below-title .gallery-item {
+  align-self: start;
+  width: 100%;
+}
+
+.comparison-render-split--media-below-title {
+  grid-template-rows: auto auto;
+}
+
+.comparison-render-split--media-below-title .comparison-split-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  gap: 0.35rem;
+  align-items: start;
+}
+
+.comparison-render-split--media-below-title .comparison-split-title {
+  align-self: start;
+}
+
+.comparison-render-split--media-below-title .comparison-split-media {
+  align-self: start;
+  width: 100%;
+}
+
+.comparison-render-split--media-below-title .comparison-split-media video {
+  object-position: left top;
+}
+
+.panel-detail .design-section .design-gallery {
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  gap: 0.5rem;
+  margin-top: 0;
+}
+
+.panel-detail .design-section h2 {
+  width: 100%;
+}
+
+#manufacturability .design-gallery .gallery-item--autoplay {
+  width: 100%;
+  max-width: min(48rem, 100%);
+}
+
+#manufacturability .design-gallery .gallery-item--autoplay video {
+  width: auto;
+  max-width: 100%;
+  max-height: min(48vh, 440px);
+  object-fit: contain;
+  object-position: left top;
+}
+
 .design-gallery-row--segments {
   max-width: 56rem;
   margin-bottom: 0.35rem;
@@ -852,7 +1324,7 @@ strong {
   width: 100%;
   height: auto;
   display: block;
-  background: #111;
+  background: transparent;
   border-radius: 4px;
   min-width: 18rem;
 }
@@ -964,7 +1436,7 @@ strong {
 #distal-tip .gallery-item--segment-video video {
   min-width: 0;
   border-radius: 4px;
-  background: #111;
+  background: transparent;
 }
 
 #distal-tip .gallery-item figcaption {
@@ -1046,7 +1518,7 @@ strong {
 #operating-mechanism .gallery-item--segment-video video {
   min-width: 0;
   border-radius: 4px;
-  background: #111;
+  background: transparent;
 }
 
 #operating-mechanism .gallery-item figcaption {
@@ -1098,7 +1570,7 @@ strong {
   width: 100%;
   height: auto;
   display: block;
-  background: #111;
+  background: transparent;
   border-radius: 4px;
 }
 
@@ -1144,7 +1616,83 @@ strong {
   width: 100%;
   height: auto;
   display: block;
-  background: #111;
+  background: transparent;
+}
+
+#manufacturability .design-gallery {
+  max-width: 100%;
+}
+
+#motion-animation .design-gallery {
+  max-width: 100%;
+}
+
+.comparison-split-media--buildup {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+.buildup-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.buildup-stepper-slideshow {
+  position: relative;
+  width: 100%;
+  height: min(48vh, 440px);
+  min-height: min(48vh, 440px);
+  max-height: min(48vh, 440px);
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.buildup-stepper-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: left top;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.buildup-stepper-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.buildup-stepper-meta {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.panel-detail .comparison-render-split .comparison-split-media--buildup {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  align-items: flex-start;
+}
+
+.panel-detail .comparison-render-split .comparison-split-media--buildup .comparison-card,
+.panel-detail .comparison-render-split .comparison-split-media--buildup .comparison-visual {
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 
 @media (max-width: 768px) {
