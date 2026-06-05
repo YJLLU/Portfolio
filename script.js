@@ -80,6 +80,22 @@ function initCoverSlideshow(thumbEl, slides, intervalMs) {
   }, intervalMs);
 }
 
+function methodChips(project) {
+  if (!project.methods || !project.methods.length) return "";
+  return (
+    '<ul class="work-methods" aria-label="Methods used for ' +
+    project.title +
+    '">' +
+    project.methods
+      .slice(0, 4)
+      .map(function (method) {
+        return "<li>" + method + "</li>";
+      })
+      .join("") +
+    "</ul>"
+  );
+}
+
 if (workList && typeof PROJECTS !== "undefined") {
   const items =
     typeof PROJECT_ORDER !== "undefined" && PROJECT_ORDER.length
@@ -105,6 +121,8 @@ if (workList && typeof PROJECTS !== "undefined") {
         p.title +
         "</h3>" +
         (p.summary ? "<p>" + p.summary + "</p>" : "") +
+        methodChips(p) +
+        '<span class="work-item-link">View case study</span>' +
         "</div>" +
         "</a>"
       );

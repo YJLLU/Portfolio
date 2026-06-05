@@ -330,6 +330,57 @@ function comparisonBlock(comparison) {
   );
 }
 
+function caseStudyBlock(project) {
+  const story = project.caseStudy;
+  const methods = project.methods || [];
+  if (!story && !methods.length) return "";
+
+  const cards = [];
+  if (story && story.challenge) {
+    cards.push({ label: "Challenge", text: story.challenge });
+  }
+  if (story && story.contribution) {
+    cards.push({ label: "Contribution", text: story.contribution });
+  }
+  if (story && story.outcome) {
+    cards.push({ label: "Outcome", text: story.outcome });
+  }
+
+  const cardsHtml = cards
+    .map(function (card) {
+      return (
+        '<article class="case-card">' +
+        "<h2>" +
+        card.label +
+        "</h2>" +
+        "<p>" +
+        card.text +
+        "</p>" +
+        "</article>"
+      );
+    })
+    .join("");
+
+  const methodsHtml = methods.length
+    ? '<div class="case-methods"><p class="eyebrow">Methods</p><ul>' +
+      methods
+        .map(function (method) {
+          return "<li>" + method + "</li>";
+        })
+        .join("") +
+      "</ul></div>"
+    : "";
+
+  return (
+    '<section class="detail-section case-study-section">' +
+    '<div class="case-card-grid">' +
+    cardsHtml +
+    methodsHtml +
+    "</div>" +
+    "</section>"
+  );
+}
+
 function designSectionsBlock(sections) {
   if (!sections || !sections.length) return "";
 
@@ -595,6 +646,7 @@ function renderProject(project) {
     .join("");
 
   const designSectionsHtml = designSectionsBlock(project.designSections);
+  const caseStudyHtml = caseStudyBlock(project);
 
   const heroFallback =
     '<div class="placeholder">Hero image: ' + project.thumb + "</div>";
@@ -632,6 +684,7 @@ function renderProject(project) {
   const main = document.getElementById("detail-main");
   main.innerHTML =
     heroHtml +
+    caseStudyHtml +
     comparisonBlock(project.comparison) +
     designSectionsHtml +
     (galleryHtml

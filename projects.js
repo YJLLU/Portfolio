@@ -12,7 +12,18 @@ const PROJECTS = {
     tag: "Surgical Robotics",
     category: "surgical-systems",
     title: "Ultrasonic Aspiration Automation",
-    summary: "",
+    summary: "Robotic test setup for automating ultrasonic aspiration workflows in a Stryker-Duke research collaboration.",
+    overview:
+      "Developed a robotic test workflow around ultrasonic aspiration to support repeatable tissue interaction studies and early evaluation of automation strategies.",
+    methods: ["Robot tool mounting", "Test automation", "Tissue sample preparation", "Prototype iteration"],
+    caseStudy: {
+      challenge:
+        "Manual aspiration testing can be difficult to repeat consistently, especially when tool position, force, and tissue interaction need to be compared across trials.",
+      contribution:
+        "Designed and integrated a custom tool mount for a Franka robotic arm, prepared tissue samples, and demonstrated an automated aspiration workflow.",
+      outcome:
+        "Created a working research platform for controlled automation demos and future test protocol refinement.",
+    },
     thumb: "images/ua-robot-tool-mount-cover.png",
     coverSlides: [
       "images/ua-robot-tool-mount-cover.png",
@@ -56,7 +67,18 @@ const PROJECTS = {
     tag: "Innovation Design",
     category: "endoscopy",
     title: "Ergonomic Colonoscope Innovation",
-    summary: "",
+    summary: "Endoscope handle concept replacing thumb-wheel strain with joystick control, haptic feedback, and cable-driven articulation.",
+    overview:
+      "Reframed colonoscope control around clinician ergonomics, then developed the distal-tip articulation and cable spool mechanism needed to connect the handle concept to functional motion.",
+    methods: ["Ergonomic redesign", "Cable-driven mechanism", "Functional prototyping", "Clinical workflow analysis"],
+    caseStudy: {
+      challenge:
+        "Traditional colonoscope controls rely on repetitive thumb-wheel actuation, which can contribute to hand fatigue during long procedures.",
+      contribution:
+        "Owned distal-tip and operating mechanism development, including articulated segment CAD, spool mechanism layout, and prototype motion demonstrations.",
+      outcome:
+        "Produced a cohesive problem-to-solution concept with rendered handle architecture, cable actuation logic, and working mechanism prototypes.",
+    },
     thumb: "images/colonoscope-solution-features.png",
     coverSlides: [
       "images/colonoscope-distal-tip-articulated.png",
@@ -184,7 +206,18 @@ const PROJECTS = {
     tag: "Medical Product Design",
     category: "diabetes-care",
     title: "Innovated Insulin Syringe Design for Senior Patients",
-    summary: "",
+    summary: "Patient-centered syringe concept with ergonomic handling, assisted dosing features, FEA review, and manufacturability checks.",
+    overview:
+      "Designed an insulin syringe concept for older patients who may need clearer handling cues, better grip control, and more confidence during repeat dosing.",
+    methods: ["Human factors", "CAD assembly", "FEA", "Draft analysis", "Motion study"],
+    caseStudy: {
+      challenge:
+        "Senior patients can face dexterity and visibility barriers when handling small injection devices and confirming dose actions.",
+      contribution:
+        "Created the syringe assembly, ergonomic handle concept, motion animation, FEA review, and draft analysis for manufacturability discussion.",
+      outcome:
+        "Built a complete product concept package connecting user need, mechanical structure, stress behavior, and manufacturing constraints.",
+    },
     thumb: "images/insulin-syringe-render.png",
     coverSlides: [
       "images/insulin-syringe-render.png",
@@ -297,7 +330,18 @@ const PROJECTS = {
     tag: "Medical Product Design",
     category: "urology",
     title: "Cystoscope Ergonomics Handle Design",
-    summary: "",
+    summary: "Ergonomic cystoscope handle redesign with internal assembly planning, clinical grip visualization, FEA, and molding analysis.",
+    overview:
+      "Explored a cystoscope handle architecture that improves hand fit while organizing electronic, fluid, and sheath interfaces inside a manufacturable enclosure.",
+    methods: ["Ergonomic sketching", "Internal CAD layout", "FEA", "Injection molding review"],
+    caseStudy: {
+      challenge:
+        "A clinical handle must feel stable in the hand while still packaging fluid paths, electronic interfaces, and structural supports.",
+      contribution:
+        "Developed concept sketches, external and internal CAD renders, grip visualization, FEA, and draft analysis for injection molding feasibility.",
+      outcome:
+        "Delivered a design package that communicates both user-facing ergonomics and internal engineering constraints.",
+    },
     thumb: "images/cystoscope-render-external.jpg",
     coverSlides: [
       "images/cystoscope-render-external.jpg",
@@ -390,7 +434,18 @@ const PROJECTS = {
     tag: "Medical Product Design",
     category: "medical-components",
     title: "Innovated Widget 3D Design",
-    summary: "",
+    summary: "Mechanical component redesign exercise translating sketches into technical drawings, CAD animation, and sheet-metal logic.",
+    overview:
+      "Converted an early component concept into clearer mechanical documentation through hand sketching, orthographic drawing, CAD redesign, and sheet-metal motion review.",
+    methods: ["Technical drawing", "CAD animation", "Sheet-metal design", "Form exploration"],
+    caseStudy: {
+      challenge:
+        "The component needed to move from visual concept to a more precise engineering representation with manufacturable geometry.",
+      contribution:
+        "Produced hand drawings, technical drawings, redesign animation, and sheet-metal animation to explain form and fabrication logic.",
+      outcome:
+        "Created a concise mechanical design study demonstrating translation from concept sketch to engineered representation.",
+    },
     thumb: "images/widget-sketch.jpg",
     coverSlides: [
       "images/widget-sketch.jpg",
