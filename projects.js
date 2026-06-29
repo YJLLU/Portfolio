@@ -199,6 +199,32 @@ const PROJECTS = {
           ],
         ],
       },
+      {
+        id: "final-prototype-obstacle-testing",
+        title: "Final Prototype Obstacle Testing",
+        description:
+          "The final prototype was evaluated on a physical obstacle course to demonstrate controlled distal-tip navigation through constrained and curved pathways.",
+        imageRowClass: "design-gallery-row--obstacle-testing",
+        imageRow: [
+          {
+            src: "images/colonoscope-obstacle-testing-1.jpg",
+            alt: "Operator guiding the final colonoscope prototype through a tabletop obstacle course",
+            caption: "Hands-on navigation test with the assembled prototype",
+          },
+          {
+            src: "images/colonoscope-obstacle-testing-2.jpg",
+            alt: "Final colonoscope prototype positioned within the obstacle testing course",
+            caption: "Obstacle layout used to evaluate steering through constrained paths",
+          },
+        ],
+        video: {
+          src: "videos/colonoscope-obstacle-testing.mp4",
+          caption: "Final prototype obstacle testing - first 60 seconds",
+          poster: "images/colonoscope-obstacle-testing-1.jpg",
+          autoplay: false,
+          controls: true,
+        },
+      },
     ],
   },
   "insulin-syringe": {

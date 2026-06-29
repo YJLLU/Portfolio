@@ -451,7 +451,10 @@ function designSectionsBlock(sections) {
             section.video.src,
             section.video.caption || section.title,
             section.video.caption,
-            section.video.autoplay
+            section.video.autoplay,
+            "",
+            section.video.poster,
+            section.video.controls
           )
         : "";
 
@@ -478,7 +481,10 @@ function designSectionsBlock(sections) {
             section.mediaRow.video.src,
             section.mediaRow.video.caption || section.title,
             section.mediaRow.video.caption,
-            section.mediaRow.video.autoplay
+            section.mediaRow.video.autoplay,
+            "",
+            section.mediaRow.video.poster,
+            section.mediaRow.video.controls
           ) +
           "</div>"
         : "";
@@ -572,11 +578,19 @@ function rowItemBlock(item, sectionTitle) {
   return figureHtml;
 }
 
-function videoBlock(src, alt, caption, autoplay, extraClass) {
+function videoBlock(src, alt, caption, autoplay, extraClass, poster, controls) {
   const cap = caption || alt;
+  const shouldAutoplay = autoplay !== false;
   const figureClass = extraClass
-    ? "gallery-item gallery-item--video gallery-item--autoplay " + extraClass
-    : "gallery-item gallery-item--video gallery-item--autoplay";
+    ? "gallery-item gallery-item--video" +
+      (shouldAutoplay ? " gallery-item--autoplay " : " ") +
+      extraClass
+    : "gallery-item gallery-item--video" +
+      (shouldAutoplay ? " gallery-item--autoplay" : "");
+  const playbackAttributes = shouldAutoplay
+    ? " autoplay muted loop playsinline preload=\"auto\""
+    : " playsinline preload=\"metadata\"" + (controls ? " controls" : "");
+  const posterAttribute = poster ? ' poster="' + poster + '"' : "";
   return (
     '<figure class="' +
     figureClass +
@@ -584,7 +598,10 @@ function videoBlock(src, alt, caption, autoplay, extraClass) {
     '<div class="gallery-item-visual">' +
     '<video src="' +
     src +
-    '" autoplay muted loop playsinline preload="auto" aria-label="' +
+    '"' +
+    playbackAttributes +
+    posterAttribute +
+    ' aria-label="' +
     alt +
     '"></video>' +
     "</div>" +
