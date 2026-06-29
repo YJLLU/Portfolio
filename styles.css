@@ -1892,6 +1892,10 @@ strong {
   margin: 0;
 }
 
+#ua-demo .design-media-row .gallery-item--video {
+  align-self: center;
+}
+
 #ua-demo .design-media-row .gallery-item--compact img,
 #ua-demo .design-media-row .gallery-item--video video {
   width: 100%;
