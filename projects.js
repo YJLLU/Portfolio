@@ -38,26 +38,39 @@ const PROJECTS = {
       {
         id: "ua-hardware",
         imageRowClass:
-          "design-gallery-row--cystoscope-concepts design-gallery-row--two-col design-gallery-row--media-below-title",
+          "design-gallery-row--cystoscope-concepts design-gallery-row--media-below-title design-gallery-row--ua-hardware",
         imageRow: [
+          {
+            heading: "Ultrasonic Aspirator",
+            src: "images/ua-sonopet-system.png",
+            alt: "Stryker SONOPET iQ ultrasonic aspirator console and handpiece",
+          },
+          {
+            heading: "Robotic Test Setup",
+            src: "images/ua-robotic-test-setup.png",
+            alt: "Franka robot holding the SONOPET handpiece over a tissue sample with camera tracking",
+          },
           {
             heading: "Robotic Tool Mount",
             src: "images/ua-robot-tool-mount.png",
             alt: "Franka robot with custom tool mount for ultrasonic aspirator — CAD and prototype",
           },
-          {
-            heading: "Tissue Sample",
-            src: "images/ua-tissue-sample.png",
-            alt: "Chicken breast tissue sample in petri dish for aspiration testing",
-          },
         ],
       },
       {
         id: "ua-demo",
-        title: "Automation Demo",
-        video: {
-          src: "videos/ua-automation-demo.mp4",
-          autoplay: true,
+        title: "Tissue Cutting Test",
+        mediaRow: {
+          image: {
+            src: "images/ua-tissue-sample.png",
+            alt: "Chicken breast tissue sample in a petri dish for ultrasonic aspiration testing",
+            caption: "Prepared tissue sample",
+          },
+          video: {
+            src: "videos/ua-automation-demo.mp4",
+            caption: "Automated tissue cutting demonstration",
+            autoplay: true,
+          },
         },
       },
     ],
